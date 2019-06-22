@@ -1,28 +1,38 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import './styles/App.css';
-import { Button, WhiteSpace} from 'antd-mobile';
-function App() {
-  return (
-    <div className="App">
-   
-      <Button>default</Button><WhiteSpace />
-      <Button disabled>default disabled</Button><WhiteSpace />
 
-      <Button type="primary">primary</Button><WhiteSpace />
-      <Button type="primary" disabled>primary disabled</Button><WhiteSpace />
+// import { TabBar } from 'antd-mobile';
+import MyLayout from "./components/MyLayout";
+import { HashRouter as Router, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Cart from './pages/Cart';
+import Mine from './pages/Mine';
 
-      <Button type="warning">warning</Button><WhiteSpace />
-      <Button type="warning" disabled>warning disabled</Button><WhiteSpace />
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTab: 'redTab',
+      hidden: false,
+      fullScreen: false,
+    };
+  }
 
-      <Button loading>loading button</Button><WhiteSpace />
-      <Button icon="check-circle-o">with icon</Button><WhiteSpace />
-      <Button icon={<img src="https://gw.alipayobjects.com/zos/rmsportal/jBfVSpDwPbitsABtDDlB.svg" alt="" />}>with custom icon</Button><WhiteSpace />
-      <Button icon="check-circle-o" inline size="small" style={{ marginRight: '4px' }}>with icon and inline</Button>
-      <Button icon="check-circle-o" inline size="small">with icon and inline</Button>
-   
-    </div>
-  );
+
+  render() {
+    return (
+      <Fragment>
+        <Router>
+          <Route path="/" exact render={(props) => <MyLayout {...props}> <Home /></MyLayout>} />
+          <Route path="/Cart" render={(props) => <MyLayout {...props}> <Cart /></MyLayout>} />
+          <Route path="/Mine" render={(props)=> <MyLayout {...props}> <Mine /></MyLayout>} />
+        </Router>  
+      </Fragment>
+    );
+  }
 }
 
+
 export default App;
+
